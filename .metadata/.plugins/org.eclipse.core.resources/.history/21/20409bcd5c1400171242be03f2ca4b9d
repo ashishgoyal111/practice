@@ -1,0 +1,13 @@
+package linkedlist;
+
+public class LinkedListUsage {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr1 = {1,5,2,4,5,2};
+		int[] arr2 = {1,2,3,4,5,6,7,8,9,10};
+		LinkedList list1 = new LinkedList(arr1);
+		LinkedList list2 = new LinkedList(arr2);
+	}
+
+}

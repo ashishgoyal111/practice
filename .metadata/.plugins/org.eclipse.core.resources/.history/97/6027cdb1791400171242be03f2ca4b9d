@@ -1,0 +1,17 @@
+package linkedlist;
+
+import linkedlist.LinkedList.Node;
+
+public class LinkedListUsage {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr1 = {1,2,3,4,5,6,7,8,9};
+		int[] arr2 = {2,3,20};
+		LinkedList list1 = new LinkedList(arr1);
+		LinkedList list2 = new LinkedList(arr2);
+		list1.reverseAlternateKNodes(3);
+		list1.printList();
+	}
+
+}
