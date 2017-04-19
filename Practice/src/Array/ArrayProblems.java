@@ -1,5 +1,4 @@
 package Array;
-import stack.ArrayStack;
 
 public class ArrayProblems {
     public static int searchElementInSortedAndRotatedArray(int[] input, int e, int l, int r) {
@@ -100,5 +99,157 @@ public class ArrayProblems {
 	    gcd--;
 	}
 	return gcd;
+    }
+    public static boolean isArraySorted(int[] a) {
+	for(int i=0; i<a.length-1;) {
+	    if(a[i] > a[i++])
+		return false;
+	}
+	return true;
+    }
+    public static float medianOfTwoSortedArrays(int[] a, int[] b) {
+	int n = a.length;
+	if(!isArraySorted(a) || !isArraySorted(b))
+	{
+	    System.out.println("One of the two arrays is not sorted");
+	    return -1;
+	}
+	int j, k, prev, current;
+	j = k = 0;
+	prev = current = 0;
+	for(int i=0; i<=n; i++) {
+	    if(j == n) {
+		prev = current;
+		current = b[0];
+		break;
+	    }
+	    if(k == n) {
+		prev = current;
+		current = a[0];
+		break;
+	    }
+	    if(a[j] < b[k]) {
+		prev = current;
+		current = a[j];
+		j++;
+	    }
+	    else {
+		prev = current;
+		current = b[k];
+		k++;
+	    }
+	}
+	return (prev + current)/(float)2.0;
+    }
+
+    public static double medianOfTwoSortedArraysRecusrsive(int[] a, int[] b) {
+	int n = a.length;
+	if(!isArraySorted(a) || !isArraySorted(b))
+	{
+	    System.out.println("One of the two arrays is not sorted");
+	    return -1;
+	}
+	return medianOfTwoSortedArrays(a, 0, n-1, b, 0, n-1);
+    }
+
+    public static int max(int... a) {
+	int n = a.length;
+	int max = a[0];
+	for(int i=1; i<n; i++) {
+	    if(a[i] > max)
+		max = a[i];
+	}
+	return max;
+    }
+    public static int min(int... a) {
+	int n = a.length;
+	int min = a[0];
+	for(int i=1; i<n; i++) {
+	    if(a[i] < min)
+		min = a[i];
+	}
+	return min;
+    }
+    public static double medianOfTwoSortedArrays(int[] a, int startA, int endA, int[] b, int startB, int endB) {
+	System.out.println("startA : " + startA + " endA : " + endA +" startB : " + startB + " endB : " + endB);
+	int n = endA - startA + 1;
+	if(n == 2) {
+	    return (max(a[startA], b[startB]) + min(a[endA], b[endB]))/2.0;
+	}
+	int medianA, medianB, medianIndexA, medianIndexB;
+	medianIndexA = startA + ((endA - startA) / 2);
+	System.out.println("medianIndexA : " + medianIndexA);
+	medianA = a[medianIndexA];
+	medianIndexB = startB + ((endB - startB + 1) / 2);
+	System.out.println("medianIndexB : " + medianIndexB);
+	medianB = b[medianIndexB];
+//	if(medianIndexA == 4 && medianIndexB == 1)
+//	    return -1;
+	if(medianA < medianB) {
+	    System.out.println("A is lesser than B");
+	    return medianOfTwoSortedArrays(a, medianIndexA, endA, b, startB, medianIndexB);
+	}
+	else {
+	    System.out.println("B is lesser than A");
+	    return medianOfTwoSortedArrays(a, startA, medianIndexA, b, medianIndexB, endB);
+	}
+    }
+    public static int[] dutchNationalFlagProblem(int[] input) {
+	int n = input.length;
+	int i, k;
+	i = 0;
+	k = n-1;
+	for(int l = 0; l <= k;) {
+	    if(input[l] == 0) {
+		int temp = input[i];
+		input[i] = input[l];
+		input[l] = temp;
+		l++;
+		i++;
+		continue;
+	    }
+	    if(input[l] == 1) {
+		l++;
+		continue;
+	    }
+	    if(input[l] == 2) {
+		int temp = input[k];
+		input[k] = input[l];
+		input[l] = temp;
+		k--;
+		continue;
+	    }
+	}
+	return input;
+    }
+    public static void printArray(int[] a) {
+	for(int i=0; i<a.length; i++) {
+	    System.out.print(a[i] + ",");
+	}
+	System.out.println();
+    }
+    public static int[] smallerElementsOnRightSide(int[] a) {
+	
+	return a;
+    }
+    public static int minimumStepsToReachEnd(int[] a) {
+	int n = a.length;
+	if(n == 0 || a[0] == 0)
+	    return 2*n;
+	int[] min = new int[n];
+	min[0] = 0;
+	for(int i=1; i<n; i++) {
+	    min[i] = n;
+	}
+	for(int i=0; i<n; i++) {
+	    int temp = min[i] + 1;
+	    int tempIndex = i + a[i];
+	    if(tempIndex >= n)
+		tempIndex = n-1;
+	    if(temp < min[tempIndex]) {
+		min[tempIndex] = temp;
+	    }
+	}
+	return min[n-1];
     }
 }
